@@ -8,15 +8,34 @@ on:
 jobs:
   generate:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: Platane/snk/svg-only@v3
+      - name: Generate contribution snake
+        uses: Platane/snk@v4
         with:
           github_user_name: PedroLSD-7
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg
 
-      - uses: crazy-max/ghaction-github-pages@v3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+          # Cor da cobrinha
+          SNAKE_COLOR: "#39d353"
+
+          # Fundo (dark GitHub)
+          BG_COLOR: "#0d1117"
+
+          # Cores dos quadradinhos (tons OFICIAIS do GitHub)
+          DOT_COLOR_0: "#161b22"
+          DOT_COLOR_1: "#0e4429"
+          DOT_COLOR_2: "#006d32"
+          DOT_COLOR_3: "#26a641"
+          DOT_COLOR_4: "#39d353"
+
+      - name: Push snake to output branch
+        uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: output
           build_dir: dist
