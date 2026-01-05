@@ -1,4 +1,5 @@
 name: Generate Snake
+
 on:
   schedule:
     - cron: "0 0 * * *"
@@ -9,31 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Generate contribution snake
+      - name: Generate snake animation
         uses: Platane/snk@v4
         with:
           github_user_name: PedroLSD-7
           outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg
+            dist/github-snake.svg?color_snake=%2339d353&color_dots=%23161b22,%230e4429,%23006d32,%2326a641,%2339d353
+            dist/github-snake-dark.svg?palette=github-dark
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-          # Cor da cobrinha
-          SNAKE_COLOR: "#39d353"
-
-          # Fundo (dark GitHub)
-          BG_COLOR: "#0d1117"
-
-          # Cores dos quadradinhos (tons OFICIAIS do GitHub)
-          DOT_COLOR_0: "#161b22"
-          DOT_COLOR_1: "#0e4429"
-          DOT_COLOR_2: "#006d32"
-          DOT_COLOR_3: "#26a641"
-          DOT_COLOR_4: "#39d353"
-
-      - name: Push snake to output branch
+      - name: Push to output branch
         uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: output
